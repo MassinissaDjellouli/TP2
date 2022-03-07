@@ -1,25 +1,23 @@
 package Models.Documents;
 
-import Models.Documents.Enums.MediaType;
+import Models.Enums.MediaType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@DiscriminatorValue("Media")
 public class Media extends Documents{
 
-    private final String duree;
-    private final MediaType type;
+    private String duree;
+    private MediaType type;
 
-
-    public Media(String titre, String auteur, String editeur, int anneeDePublication, String duree, MediaType type) {
-        super(titre, auteur, editeur, anneeDePublication, 3);
-        this.duree = duree;
-        this.type = type;
-        setMediaTempsEmprunts(type);
-    }
-
-    public String getDuree() {
-        return duree;
-    }
-
-    public MediaType getType() {
-        return type;
-    }
 }

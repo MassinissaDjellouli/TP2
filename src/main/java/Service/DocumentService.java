@@ -1,28 +1,20 @@
 package Service;
 
-import Database.JDBCLivres;
-import Database.JDBCMedia;
+import Database.DAODocuments;
+import Models.Documents.Documents;
 import Models.Documents.Livre;
 import Models.Documents.Media;
 
 public class DocumentService {
-    private JDBCLivres DBLivres;
-    private JDBCMedia DBMedia;
+    private DAODocuments DBDocument;
 
-    public DocumentService(JDBCLivres DBLivres, JDBCMedia DBMedia) {
-        this.DBLivres = DBLivres;
-        this.DBMedia = DBMedia;
+    public DocumentService(DAODocuments DBDocuments) {
+        this.DBDocument = DBDocuments;
     }
-    public void saveLivre(Livre livre){
-
-    }
-    public void saveMedia(Media media){
-
-    }
-    public Livre getLivre(int id){
+    public Documents getDocument(int id){
         return null;
     }
-    public Media getMedia(int id){
-        return null;
+    public void saveDocument(Documents toSave){
+
     }
 }

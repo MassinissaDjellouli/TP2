@@ -1,12 +1,12 @@
 package Service;
 
-import Database.JDBCClient;
+import Database.DAOClient;
 import Models.Users.Client;
 
 public class ClientService {
-    private JDBCClient DBClient;
+    private DAOClient DBClient;
 
-    public ClientService(JDBCClient DBClient) {
+    public ClientService(DAOClient DBClient) {
         this.DBClient = DBClient;
     }
     public void saveClient(Client client){

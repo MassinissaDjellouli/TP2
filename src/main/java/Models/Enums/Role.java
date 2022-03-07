@@ -1,4 +1,4 @@
-package Models.Users;
+package Models.Enums;
 
 public enum Role {
     prepose,

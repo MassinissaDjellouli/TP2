@@ -1,52 +1,35 @@
 package Models.Documents;
 
-import Models.Documents.Enums.MediaType;
+import Models.Enums.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+@Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Documents {
-    private final String titre;
-    private final String auteur;
-    private final String editeur;
-    private final int anneeDePublication;
+    @Id
+    private int documentId;
+    private String titre;
+    private String auteur;
+    private String editeur;
+    private int anneeDePublication;
     private int tempsEmprunt;
 
-    public Documents(String titre, String auteur, String editeur, int anneeDePublication, int tempsEmprunt) {
-        this.titre = titre;
-        this.auteur = auteur;
-        this.editeur = editeur;
-        this.anneeDePublication = anneeDePublication;
-        this.tempsEmprunt = tempsEmprunt;
-    }
-    public Documents(String titre, String auteur, String editeur, int anneeDePublication) {
-        this.titre = titre;
-        this.auteur = auteur;
-        this.editeur = editeur;
-        this.anneeDePublication = anneeDePublication;
-    }
-
-    public String getTitre() {
-        return titre;
-    }
-
-    public String getAuteur() {
-        return auteur;
-    }
-
-    public String getEditeur() {
-        return editeur;
-    }
-
-    public int getAnneeDePublication() {
-        return anneeDePublication;
-    }
-
-    public int getTempsEmprunt() {
-        return tempsEmprunt;
-    }
-
-    protected void setMediaTempsEmprunts(MediaType type) {
-        switch (type){
-            case cd ->tempsEmprunt = 2;
-            case dvd -> tempsEmprunt = 1;
+    protected static void setMediaTempsEmprunts(Media media) {
+        switch (media.getType()){
+            case cd -> media.setTempsEmprunt(2);
+            case dvd -> media.setTempsEmprunt(1);
         }
     }
 }

@@ -1,12 +1,13 @@
 package Service;
 
-import Database.JDBCEmploye;
+import Database.DAODocuments;
+import Database.DAOEmploye;
 import Models.Users.Employe;
 
 public class EmployeeService {
-    private JDBCEmploye DBEmploye;
+    private DAOEmploye DBEmploye;
 
-    public EmployeeService(JDBCEmploye DBEmploye) {
+    public EmployeeService(DAOEmploye DBEmploye) {
         this.DBEmploye = DBEmploye;
     }
     public void saveEmployee(Employe employe){

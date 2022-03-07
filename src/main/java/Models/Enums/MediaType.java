@@ -1,4 +1,4 @@
-package Models.Documents.Enums;
+package Models.Enums;
 
 public enum MediaType {
     cd,
