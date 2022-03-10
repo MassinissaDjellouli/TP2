@@ -2,9 +2,12 @@ package Database;
 
 import Models.Emprunt;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.List;
 
 public class DAOEmprunts implements DAOInterface<Emprunt> {
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TP2");
     @Override
     public void save(Emprunt toSave) {
 

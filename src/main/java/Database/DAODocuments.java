@@ -2,10 +2,13 @@ package Database;
 
 import Models.Documents.Documents;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.List;
 
 public class DAODocuments implements DAOInterface<Documents>
 {
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TP2");
     @Override
     public void save(Documents toSave) {
 
