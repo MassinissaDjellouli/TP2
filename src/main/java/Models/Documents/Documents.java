@@ -25,6 +25,7 @@ public abstract class Documents {
     private String editeur;
     private int anneeDePublication;
     private int tempsEmprunt;
+    private int nbExemplaires;
 
     protected static void setMediaTempsEmprunts(Media media) {
         switch (media.getType()){

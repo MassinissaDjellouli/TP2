@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.ArrayList;
+import javax.persistence.OneToMany;
 import java.util.List;
 @Entity
 @Data
@@ -22,7 +22,7 @@ public class Client {
     private String clientAdress;
     private String clientPhone;
     private float dette;
-
+    @OneToMany
     private List<Documents> emprunts;
 
 
