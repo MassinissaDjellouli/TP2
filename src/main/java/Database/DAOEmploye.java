@@ -20,7 +20,10 @@ public class DAOEmploye implements DAOInterface<Employe> {
 
     @Override
     public Employe findById(int id) {
-        return null;
+        beginTransaction();
+        Employe toReturn = entityManager.find(Employe.class,id);
+        finishTransaction();
+        return toReturn;
     }
 
     @Override
