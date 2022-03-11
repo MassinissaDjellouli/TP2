@@ -8,7 +8,6 @@ import java.util.List;
 
 public class DAODocuments extends DAO implements DAOInterface<Documents>
 {
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TP2");
     @Override
     public void save(Documents toSave) {
 

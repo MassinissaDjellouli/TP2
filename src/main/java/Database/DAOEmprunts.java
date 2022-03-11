@@ -7,9 +7,9 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 public class DAOEmprunts extends DAO implements DAOInterface<Emprunt> {
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TP2");
     @Override
     public void save(Emprunt toSave) {
+
     }
 
     @Override
