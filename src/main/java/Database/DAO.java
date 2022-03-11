@@ -14,6 +14,9 @@ public abstract class DAO {
     protected void throwIfNull(Object o){
         if(o == null) throw new IllegalArgumentException();
     }
+    protected void throwIfNotNull(Object o){
+        if(o != null) throw new IllegalArgumentException();
+    }
     protected void beginTransaction(){
         entityManager = getEntityManager();
         entityManager.getTransaction().begin();
