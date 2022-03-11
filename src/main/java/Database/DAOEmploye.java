@@ -38,7 +38,9 @@ public class DAOEmploye implements DAOInterface<Employe> {
 
     @Override
     public void deleteById(int id) {
-
+        beginTransaction();
+        entityManager.remove(findById(id));
+        finishTransaction();
     }
 
     @Override
