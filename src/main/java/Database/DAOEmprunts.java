@@ -9,7 +9,10 @@ import java.util.List;
 public class DAOEmprunts extends DAO implements DAOInterface<Emprunt> {
     @Override
     public void save(Emprunt toSave) {
-
+        throwIfNull(toSave);
+        beginTransaction();
+        entityManager.persist(toSave);
+        finishTransaction();
     }
 
     @Override
