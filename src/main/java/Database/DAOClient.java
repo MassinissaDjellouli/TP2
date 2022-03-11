@@ -6,7 +6,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-public class DAOClient implements DAOInterface<Client> {
+public class DAOClient extends DAO implements DAOInterface<Client> {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TP2");
     @Override
     public void save(Client toSave) {

@@ -6,7 +6,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-public class DAODocuments implements DAOInterface<Documents>
+public class DAODocuments extends DAO implements DAOInterface<Documents>
 {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TP2");
     @Override

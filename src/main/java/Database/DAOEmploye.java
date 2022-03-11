@@ -8,9 +8,8 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class DAOEmploye implements DAOInterface<Employe> {
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("TP2");
-    EntityManager entityManager;
+public class DAOEmploye extends DAO implements DAOInterface<Employe> {
+
     @Override
     public void save(Employe toSave) {
         throwIfNull(toSave);
@@ -53,21 +52,5 @@ public class DAOEmploye implements DAOInterface<Employe> {
         finishTransaction();
     }
 
-    private EntityManager getEntityManager(){
-        return entityManagerFactory.createEntityManager();
-    }
 
-    private void throwIfNull(Object o){
-        if(o == null) throw new IllegalArgumentException();
-    }
-    private void beginTransaction(){
-        entityManager = getEntityManager();
-        entityManager.getTransaction().begin();
-    }
-    private void finishTransaction(){
-        throwIfNull(entityManager);
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        entityManager = null;
-    }
 }
