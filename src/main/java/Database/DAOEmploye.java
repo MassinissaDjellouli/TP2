@@ -5,6 +5,7 @@ import Models.Users.Employe;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class DAOEmploye implements DAOInterface<Employe> {
@@ -28,7 +29,11 @@ public class DAOEmploye implements DAOInterface<Employe> {
 
     @Override
     public List<Employe> findAll() {
-        return null;
+        beginTransaction();
+        TypedQuery<Employe> query = entityManager.createQuery("select e from Employe e",Employe.class );
+        List<Employe> toReturn = query.getResultList();
+        finishTransaction();
+        return toReturn;
     }
 
     @Override
