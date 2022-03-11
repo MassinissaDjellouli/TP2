@@ -47,7 +47,10 @@ public class DAOEmploye implements DAOInterface<Employe> {
 
     @Override
     public void delete(Employe toDelete) {
-
+        beginTransaction();
+        throwIfNull(toDelete);
+        entityManager.remove(toDelete);
+        finishTransaction();
     }
 
     private EntityManager getEntityManager(){
