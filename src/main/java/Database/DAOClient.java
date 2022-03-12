@@ -1,9 +1,11 @@
 package Database;
 
 import Models.Users.Client;
+import Models.Users.Employe;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class DAOClient extends DAO implements DAOInterface<Client> {
@@ -25,7 +27,11 @@ public class DAOClient extends DAO implements DAOInterface<Client> {
 
     @Override
     public List<Client> findAll() {
-        return null;
+        beginTransaction();
+        TypedQuery<Client> query = entityManager.createQuery("select c from Client c",Client.class );
+        List<Client> toReturn = query.getResultList();
+        finishTransaction();
+        return toReturn;
     }
 
     @Override
