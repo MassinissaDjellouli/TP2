@@ -9,7 +9,10 @@ import java.util.List;
 public class DAOClient extends DAO implements DAOInterface<Client> {
     @Override
     public void save(Client toSave) {
-
+        throwIfNull(toSave);
+        beginTransaction();
+        entityManager.persist(toSave);
+        finishTransaction();
     }
 
     @Override
