@@ -1,9 +1,12 @@
 package Database;
 
 import Models.Documents.Documents;
+import Models.Users.Employe;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import javax.print.Doc;
 import java.util.List;
 
 public class DAODocuments extends DAO implements DAOInterface<Documents>
@@ -18,7 +21,10 @@ public class DAODocuments extends DAO implements DAOInterface<Documents>
 
     @Override
     public Documents findById(int id) {
-        return null;
+        beginTransaction();
+        Documents toReturn = entityManager.find(Documents.class,id);
+        finishTransaction();
+        return toReturn;
     }
 
     @Override
