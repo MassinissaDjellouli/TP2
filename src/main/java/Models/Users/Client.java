@@ -1,6 +1,7 @@
 package Models.Users;
 
 import Models.Documents.Documents;
+import Models.Emprunt;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +24,7 @@ public class Client {
     private String clientPhone;
     private float dette;
     @OneToMany
-    private List<Documents> emprunts;
+    private List<Emprunt> emprunts;
 
 
 }
