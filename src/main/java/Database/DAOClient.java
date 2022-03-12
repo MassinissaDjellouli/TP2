@@ -17,7 +17,10 @@ public class DAOClient extends DAO implements DAOInterface<Client> {
 
     @Override
     public Client findById(int id) {
-        return null;
+        beginTransaction();
+        Client toReturn = entityManager.find(Client.class,id);
+        finishTransaction();
+        return toReturn;
     }
 
     @Override
