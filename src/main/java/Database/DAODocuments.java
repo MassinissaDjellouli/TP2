@@ -10,7 +10,10 @@ public class DAODocuments extends DAO implements DAOInterface<Documents>
 {
     @Override
     public void save(Documents toSave) {
-
+        throwIfNull(toSave);
+        beginTransaction();
+        entityManager.persist(toSave);
+        finishTransaction();
     }
 
     @Override
