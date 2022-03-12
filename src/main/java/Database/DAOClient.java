@@ -36,7 +36,11 @@ public class DAOClient extends DAO implements DAOInterface<Client> {
 
     @Override
     public void deleteById(int id) {
-
+        beginTransaction();
+        Client toRemove = findById(id);
+        throwIfNull(toRemove);
+        entityManager.remove(toRemove);
+        finishTransaction();
     }
 
     @Override
