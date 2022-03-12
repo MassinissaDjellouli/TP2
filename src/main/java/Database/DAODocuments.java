@@ -47,6 +47,9 @@ public class DAODocuments extends DAO implements DAOInterface<Documents>
 
     @Override
     public void delete(Documents toDelete) {
-
+        beginTransaction();
+        throwIfNull(toDelete);
+        entityManager.remove(toDelete);
+        finishTransaction();
     }
 }
