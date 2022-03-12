@@ -17,7 +17,10 @@ public class DAOEmprunts extends DAO implements DAOInterface<Emprunt> {
 
     @Override
     public Emprunt findById(int id) {
-        return null;
+        beginTransaction();
+        Emprunt toReturn = entityManager.find(Emprunt.class,id);
+        finishTransaction();
+        return toReturn;
     }
 
     @Override
