@@ -36,7 +36,11 @@ public class DAOEmprunts extends DAO implements DAOInterface<Emprunt> {
 
     @Override
     public void deleteById(int id) {
-
+        beginTransaction();
+        Emprunt toRemove = findById(id);
+        throwIfNull(toRemove);
+        entityManager.remove(toRemove);
+        finishTransaction();
     }
 
     @Override
