@@ -1,9 +1,11 @@
 package Database;
 
 import Models.Emprunt;
+import Models.Users.Employe;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class DAOEmprunts extends DAO implements DAOInterface<Emprunt> {
@@ -25,7 +27,11 @@ public class DAOEmprunts extends DAO implements DAOInterface<Emprunt> {
 
     @Override
     public List<Emprunt> findAll() {
-        return null;
+        beginTransaction();
+        TypedQuery<Emprunt> query = entityManager.createQuery("select e from Emprunt e",Emprunt.class );
+        List<Emprunt> toReturn = query.getResultList();
+        finishTransaction();
+        return toReturn;
     }
 
     @Override
