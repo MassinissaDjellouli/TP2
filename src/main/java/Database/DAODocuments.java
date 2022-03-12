@@ -29,7 +29,11 @@ public class DAODocuments extends DAO implements DAOInterface<Documents>
 
     @Override
     public List<Documents> findAll() {
-        return null;
+        beginTransaction();
+        TypedQuery<Documents> query = entityManager.createQuery("select d from Documents d",Documents.class );
+        List<Documents> toReturn = query.getResultList();
+        finishTransaction();
+        return toReturn;
     }
 
     @Override
