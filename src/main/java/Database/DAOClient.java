@@ -6,7 +6,10 @@ import Models.Users.Employe;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DAOClient extends DAO implements DAOInterface<Client> {
     @Override
@@ -36,18 +39,18 @@ public class DAOClient extends DAO implements DAOInterface<Client> {
     }
 
     @Override
-    public List<Client> findAll() {
+    public Set<Client> findAll() {
         beginTransaction();
         TypedQuery<Client> query = entityManager.createQuery("select c from Client c",Client.class );
-        List<Client> toReturn = query.getResultList();
+        Set<Client> toReturn = new HashSet<>(query.getResultList());
         finishTransaction();
         return toReturn;
     }
-    public List<Client> findAllWEmprunts() {
+    public Set<Client> findAllWEmprunts() {
         beginTransaction();
         TypedQuery<Client> query = entityManager.createQuery(
-                "select c from Client c left join fetch c.emprunts ce where ce.client.id = c.id",Client.class );
-        List<Client> toReturn = query.getResultList();
+                "select c from Client c left join fetch c.emprunts ce where ce.client.clientNumber = c.clientNumber",Client.class );
+        Set<Client> toReturn = new HashSet<>(query.getResultList());
         finishTransaction();
         return toReturn;
     }

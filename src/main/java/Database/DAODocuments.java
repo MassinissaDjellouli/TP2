@@ -7,7 +7,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.print.Doc;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DAODocuments extends DAO implements DAOInterface<Documents>
 {
@@ -28,10 +30,10 @@ public class DAODocuments extends DAO implements DAOInterface<Documents>
     }
 
     @Override
-    public List<Documents> findAll() {
+    public Set<Documents> findAll() {
         beginTransaction();
         TypedQuery<Documents> query = entityManager.createQuery("select d from Documents d",Documents.class );
-        List<Documents> toReturn = query.getResultList();
+        Set<Documents> toReturn = new HashSet(query.getResultList());
         finishTransaction();
         return toReturn;
     }

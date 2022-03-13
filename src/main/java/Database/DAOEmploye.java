@@ -6,7 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DAOEmploye extends DAO implements DAOInterface<Employe> {
 
@@ -27,10 +29,10 @@ public class DAOEmploye extends DAO implements DAOInterface<Employe> {
     }
 
     @Override
-    public List<Employe> findAll() {
+    public Set<Employe> findAll() {
         beginTransaction();
         TypedQuery<Employe> query = entityManager.createQuery("select e from Employe e",Employe.class );
-        List<Employe> toReturn = query.getResultList();
+        Set<Employe> toReturn = new HashSet(query.getResultList());
         finishTransaction();
         return toReturn;
     }
