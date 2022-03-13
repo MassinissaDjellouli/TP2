@@ -1,5 +1,6 @@
 package Models.Users;
 
+import Models.Dette;
 import Models.Documents.Documents;
 import Models.Emprunt;
 import lombok.*;
@@ -18,7 +19,9 @@ public class Client {
     private String clientName;
     private String clientAdress;
     private String clientPhone;
-    private float dette;
+    @OneToOne
+    @ToString.Exclude
+    private Dette dette;
     @ToString.Exclude
     @OneToMany(mappedBy = "client",cascade = CascadeType.PERSIST)
     private List<Emprunt> emprunts;
