@@ -2,10 +2,7 @@ package Models.Users;
 
 import Models.Documents.Documents;
 import Models.Emprunt;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,6 +19,7 @@ public class Client {
     private String clientAdress;
     private String clientPhone;
     private float dette;
+    @ToString.Exclude
     @OneToMany(mappedBy = "client",cascade = CascadeType.PERSIST)
     private List<Emprunt> emprunts;
 
