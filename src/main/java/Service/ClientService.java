@@ -33,6 +33,7 @@ public class ClientService {
         }catch (IllegalArgumentException e){
             System.out.println("Client non existant");
         }
+        DBClient.merge(client);
     }
     public Client getClient(int id){
         return null;
