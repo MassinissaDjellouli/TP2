@@ -1,14 +1,13 @@
 package Service;
 
-import Database.DAODocuments;
-import Database.DAOEmploye;
+import Database.BiblioDAO;
 import Models.Users.Employe;
 
 public class EmployeeService {
-    private DAOEmploye DBEmploye;
+    private BiblioDAO DB;
 
-    public EmployeeService(DAOEmploye DBEmploye) {
-        this.DBEmploye = DBEmploye;
+    public EmployeeService(BiblioDAO DBEmploye) {
+        this.DB = DBEmploye;
     }
     public void saveEmployee(Employe employe){
 
