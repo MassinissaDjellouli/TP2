@@ -20,7 +20,7 @@ public class Client {
     private String clientName;
     private String clientAdress;
     private String clientPhone;
-    @OneToOne(mappedBy = "client",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "client",cascade = CascadeType.ALL, optional = true)
     @ToString.Exclude
     private Dette dette;
     @ToString.Exclude

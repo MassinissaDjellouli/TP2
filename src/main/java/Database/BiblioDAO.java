@@ -1,5 +1,6 @@
 package Database;
 
+import Models.Dette;
 import Models.Documents.Documents;
 import Models.Users.Client;
 
@@ -24,7 +25,6 @@ public class BiblioDAO implements BiblioDAOInterface {
         entityManager.persist(toSave);
         finishTransaction();
     }
-
     @Override
     public <T> void delete(T toDelete) {
         beginTransaction();
@@ -109,5 +109,14 @@ public class BiblioDAO implements BiblioDAOInterface {
         entityManager.getTransaction().commit();
         entityManager.close();
         entityManager = null;
+    }
+    public void handleException(String msg){
+        if(entityManager != null){
+            entityManager.getTransaction().rollback();
+            entityManager.close();
+            entityManager = null;
+        }
+            System.out.println(msg);
+
     }
 }

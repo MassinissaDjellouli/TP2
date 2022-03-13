@@ -25,18 +25,21 @@ public class ClientService {
         DB.save(toSave);
     }
     public void addDetteToClient(int id, float montant){
-        Dette dette = Dette.builder()
-                .montant(montant)
-                .dateDebut(LocalDateTime.now())
-                .build();
+
         try {
             Client client = DB.findClientById(id);
-            DB.delete(client.getDette());
+            Dette oldDette = client.getDette();
+            Dette dette = Dette.builder()
+                    .montant(montant)
+                    .dateDebut(LocalDateTime.now())
+                    .id(oldDette.getId())
+                    .build();
             client.setDette(dette);
             dette.setClient(client);
+            DB.merge(dette);
             DB.merge(client);
         }catch (IllegalArgumentException e){
-            System.out.println("Client non existant");
+            DB.handleException("Une erreur est survenue avec la base de donnée");
         }
     }
     public Client getClientById(int id){
