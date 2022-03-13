@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 public class ClientService {
-    private BiblioDAO DBClient;
+    private BiblioDAO DB;
 
     public ClientService(BiblioDAO DBClient) {
-        this.DBClient = DBClient;
+        this.DB = DBClient;
     }
     public void saveNewClient(String name,String adress, String phone){
         Dette dette = new Dette();
@@ -22,7 +22,7 @@ public class ClientService {
                         .build();
         dette.setClient(toSave);
         toSave.setDette(dette);
-        DBClient.save(toSave);
+        DB.save(toSave);
     }
     public void addDetteToClient(int id, float montant){
         Dette dette = Dette.builder()
@@ -30,21 +30,22 @@ public class ClientService {
                 .dateDebut(LocalDateTime.now())
                 .build();
         try {
-            Client client = DBClient.findClientById(id);
+            Client client = DB.findClientById(id);
+            DB.delete(client.getDette());
             client.setDette(dette);
             dette.setClient(client);
-            DBClient.merge(client);
+            DB.merge(client);
         }catch (IllegalArgumentException e){
             System.out.println("Client non existant");
         }
     }
     public Client getClientById(int id){
-        return DBClient.findClientByIdWEmprunts(id);
+        return DB.findClientByIdWEmprunts(id);
     }
     public Set<Client> getAllClients(){
-        return DBClient.findAllClient();
+        return DB.findAllClient();
     }
     public Set<Client> getAllClientsWEmprunt(){
-        return DBClient.findAllClientWEmprunts();
+        return DB.findAllClientWEmprunts();
     }
 }
