@@ -35,7 +35,7 @@ public class ClientService {
         }
         DBClient.merge(client);
     }
-    public Client getClient(int id){
-        return null;
+    public Client getClientById(int id){
+        return DBClient.findByIdWEmprunts(id);
     }
 }
