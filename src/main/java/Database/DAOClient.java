@@ -25,10 +25,28 @@ public class DAOClient extends DAO implements DAOInterface<Client> {
         return toReturn;
     }
 
+    public Client findByIdWEmprunts(int id) {
+        beginTransaction();
+        TypedQuery<Client> query =
+                entityManager.createQuery("select c From Client c left join fetch c.emprunts ce where ce.client.id = :id ",Client.class);
+        query.setParameter("id",id);
+        Client toReturn = query.getSingleResult();
+        finishTransaction();
+        return toReturn;
+    }
+
     @Override
     public List<Client> findAll() {
         beginTransaction();
         TypedQuery<Client> query = entityManager.createQuery("select c from Client c",Client.class );
+        List<Client> toReturn = query.getResultList();
+        finishTransaction();
+        return toReturn;
+    }
+    public List<Client> findAllWEmprunts() {
+        beginTransaction();
+        TypedQuery<Client> query = entityManager.createQuery(
+                "select c from Client c left join fetch c.emprunts ce where ce.client.id = c.id",Client.class );
         List<Client> toReturn = query.getResultList();
         finishTransaction();
         return toReturn;
