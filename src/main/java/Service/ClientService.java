@@ -5,6 +5,7 @@ import Models.Dette;
 import Models.Users.Client;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public class ClientService {
     private DAOClient DBClient;
@@ -37,5 +38,11 @@ public class ClientService {
     }
     public Client getClientById(int id){
         return DBClient.findByIdWEmprunts(id);
+    }
+    public Set<Client> getAllClients(){
+        return DBClient.findAll();
+    }
+    public Set<Client> getAllClientsWEmprunt(){
+        return DBClient.findAllWEmprunts();
     }
 }
