@@ -1,5 +1,7 @@
 package Database;
 
+import Models.Documents.Documents;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -11,7 +13,19 @@ public abstract class DAO {
         return entityManagerFactory.createEntityManager();
     }
 
-    protected <T> void merge(T toMerge){
+    public <T> void save(T toSave) {
+        throwIfNull(toSave);
+        beginTransaction();
+        entityManager.persist(toSave);
+        finishTransaction();
+    }
+    public <T> void delete(T toDelete) {
+        beginTransaction();
+        throwIfNull(toDelete);
+        entityManager.remove(toDelete);
+        finishTransaction();
+    }
+    public <T> void merge(T toMerge){
         beginTransaction();
         entityManager.merge(toMerge);
         finishTransaction();

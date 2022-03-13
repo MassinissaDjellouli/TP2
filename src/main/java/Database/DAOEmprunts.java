@@ -11,13 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 public class DAOEmprunts extends DAO implements DAOInterface<Emprunt> {
-    @Override
-    public void save(Emprunt toSave) {
-        throwIfNull(toSave);
-        beginTransaction();
-        entityManager.persist(toSave);
-        finishTransaction();
-    }
+
 
     @Override
     public Emprunt findById(int id) {
@@ -45,11 +39,4 @@ public class DAOEmprunts extends DAO implements DAOInterface<Emprunt> {
         finishTransaction();
     }
 
-    @Override
-    public void delete(Emprunt toDelete) {
-        beginTransaction();
-        throwIfNull(toDelete);
-        entityManager.remove(toDelete);
-        finishTransaction();
-    }
 }

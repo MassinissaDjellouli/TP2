@@ -12,13 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 public class DAOClient extends DAO implements DAOInterface<Client> {
-    @Override
-    public void save(Client toSave) {
-        throwIfNull(toSave);
-        beginTransaction();
-        entityManager.persist(toSave);
-        finishTransaction();
-    }
+
 
     @Override
     public Client findById(int id) {
@@ -64,11 +58,5 @@ public class DAOClient extends DAO implements DAOInterface<Client> {
         finishTransaction();
     }
 
-    @Override
-    public void delete(Client toDelete) {
-        beginTransaction();
-        throwIfNull(toDelete);
-        entityManager.remove(toDelete);
-        finishTransaction();
-    }
+
 }

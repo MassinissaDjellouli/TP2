@@ -13,13 +13,7 @@ import java.util.Set;
 
 public class DAODocuments extends DAO implements DAOInterface<Documents>
 {
-    @Override
-    public void save(Documents toSave) {
-        throwIfNull(toSave);
-        beginTransaction();
-        entityManager.persist(toSave);
-        finishTransaction();
-    }
+
 
     @Override
     public Documents findById(int id) {
@@ -42,16 +36,9 @@ public class DAODocuments extends DAO implements DAOInterface<Documents>
     public void deleteById(int id) {
         beginTransaction();
         Documents toDelete = findById(id);
-        throwIfNull(toDelete);
-        entityManager.remove(toDelete);
+        delete(toDelete);
         finishTransaction();
     }
 
-    @Override
-    public void delete(Documents toDelete) {
-        beginTransaction();
-        throwIfNull(toDelete);
-        entityManager.remove(toDelete);
-        finishTransaction();
-    }
+
 }

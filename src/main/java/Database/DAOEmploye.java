@@ -13,14 +13,6 @@ import java.util.Set;
 public class DAOEmploye extends DAO implements DAOInterface<Employe> {
 
     @Override
-    public void save(Employe toSave) {
-        throwIfNull(toSave);
-        beginTransaction();
-        entityManager.persist(toSave);
-        finishTransaction();
-    }
-
-    @Override
     public Employe findById(int id) {
         beginTransaction();
         Employe toReturn = entityManager.find(Employe.class,id);
@@ -46,13 +38,6 @@ public class DAOEmploye extends DAO implements DAOInterface<Employe> {
         finishTransaction();
     }
 
-    @Override
-    public void delete(Employe toDelete) {
-        beginTransaction();
-        throwIfNull(toDelete);
-        entityManager.remove(toDelete);
-        finishTransaction();
-    }
 
 
 }
