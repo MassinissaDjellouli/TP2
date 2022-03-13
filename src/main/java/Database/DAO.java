@@ -11,7 +11,11 @@ public abstract class DAO {
         return entityManagerFactory.createEntityManager();
     }
 
-
+    protected <T> void merge(T toMerge){
+        beginTransaction();
+        entityManager.merge(toMerge);
+        finishTransaction();
+    }
     protected void throwIfNull(Object o){
         if(o == null) throw new IllegalArgumentException();
     }
