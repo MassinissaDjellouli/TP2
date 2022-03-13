@@ -11,6 +11,7 @@ public abstract class DAO {
         return entityManagerFactory.createEntityManager();
     }
 
+
     protected void throwIfNull(Object o){
         if(o == null) throw new IllegalArgumentException();
     }

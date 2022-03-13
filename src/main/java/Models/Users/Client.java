@@ -19,7 +19,7 @@ public class Client {
     private String clientName;
     private String clientAdress;
     private String clientPhone;
-    @OneToOne
+    @OneToOne(mappedBy = "client",cascade = CascadeType.PERSIST)
     @ToString.Exclude
     private Dette dette;
     @ToString.Exclude
