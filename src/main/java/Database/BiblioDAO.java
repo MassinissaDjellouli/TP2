@@ -3,6 +3,7 @@ package Database;
 import Models.Dette;
 import Models.Documents.Documents;
 import Models.Documents.Livre;
+import Models.Documents.Media;
 import Models.Users.Client;
 
 import javax.persistence.EntityManager;
@@ -56,7 +57,7 @@ public class BiblioDAO implements BiblioDAOInterface {
         finishTransaction();
         return toReturn;
     }
-
+    @Override
     public Set<Livre> findAllLivre(){
         beginTransaction();
         TypedQuery<Livre> query = entityManager.createQuery("select l from Livre l", Livre.class );
@@ -128,5 +129,13 @@ public class BiblioDAO implements BiblioDAOInterface {
         }
             System.out.println(msg);
 
+    }
+    @Override
+    public Set<Media> findAllMedia() {
+        beginTransaction();
+        TypedQuery<Media> query = entityManager.createQuery("select m from Media m", Media.class );
+        Set<Media> toReturn = new HashSet(query.getResultList());
+        finishTransaction();
+        return toReturn;
     }
 }
