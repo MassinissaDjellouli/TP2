@@ -90,7 +90,7 @@ public class ClientService {
         Set<Livre> livres = DB.findAllLivre();
         Set<Livre> toReturn = new HashSet<>();
         for (Livre livre : livres){
-            if (livre.getAuteur().equals(auteur))){
+            if (livre.getAuteur().equals(auteur)){
                 toReturn.add(livre);
             }
         }
