@@ -2,9 +2,12 @@ package Service;
 
 import Database.BiblioDAO;
 import Models.Dette;
+import Models.Emprunt;
 import Models.Users.Client;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ClientService {
@@ -44,6 +47,10 @@ public class ClientService {
     }
     public Client getClientById(int id){
         return DB.findClientByIdWEmprunts(id);
+    }
+    public List<Emprunt> getClientEmprunts(int clientId){
+        Client client = getClientById(clientId);
+        return client.getEmprunts();
     }
     public Set<Client> getAllClients(){
         return DB.findAllClient();
