@@ -133,5 +133,44 @@ public class ClientService {
         }
         return toReturn;
     }
-
+    public Set<Media> rechercheMediaTitre(String titre){
+        Set<Media> medias = DB.findAllMedia();
+        Set<Media> toReturn = new HashSet<>();
+        for (Media media : medias){
+            if (media.getTitre().contains(titre)){
+                toReturn.add(media);
+            }
+        }
+        return toReturn;
+    }
+    public Set<Media> rechercheMediaAuteur(String auteur){
+        Set<Media> medias = DB.findAllMedia();
+        Set<Media> toReturn = new HashSet<>();
+        for (Media media : medias){
+            if (media.getAuteur().equals(auteur)){
+                toReturn.add(media);
+            }
+        }
+        return toReturn;
+    }
+    public Set<Media> rechercheMediaAnne(int annee){
+        Set<Media> medias = DB.findAllMedia();
+        Set<Media> toReturn = new HashSet<>();
+        for (Media media : medias){
+            if (media.getAnneeDePublication() == annee ){
+                toReturn.add(media);
+            }
+        }
+        return toReturn;
+    }
+    public Set<Media> rechercheMediaType(MediaType type){
+        Set<Media> medias = DB.findAllMedia();
+        Set<Media> toReturn = new HashSet<>();
+        for (Media media : medias){
+            if (media.getType() == type){
+                toReturn.add(media);
+            }
+        }
+        return toReturn;
+    }
 }
