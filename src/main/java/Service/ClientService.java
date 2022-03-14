@@ -5,6 +5,7 @@ import Models.Dette;
 import Models.Documents.Documents;
 import Models.Documents.Livre;
 import Models.Emprunt;
+import Models.Enums.Genres;
 import Models.Users.Client;
 
 import java.time.LocalDateTime;
@@ -59,6 +60,21 @@ public class ClientService {
     }
     public Set<Client> getAllClientsWEmprunt(){
         return DB.findAllClientWEmprunts();
+    }
+    public void saveNewLivre(String titre, String auteur,
+                             String editeur, int anneDePublication,
+                             int nbExemplaire, int nbPages, Genres genre){
+        Livre toSave = Livre.builder()
+                .titre(titre)
+                .auteur(auteur)
+                .editeur(editeur)
+                .anneeDePublication(anneDePublication)
+                .nbExemplaires(nbExemplaire)
+                .nbPages(nbPages)
+                .tempsEmprunt(3)
+                .genre(genre)
+                .build();
+        DB.save(toSave);
     }
     public Set<Livre> rechercheLivreTitre(String titre){
         Set<Livre> livres = DB.findAllLivre();
