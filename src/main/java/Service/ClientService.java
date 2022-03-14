@@ -84,14 +84,49 @@ public class ClientService {
     }
 
     private void addExemplaire(Documents document) {
+        if (document instanceof Livre){
+            document.setDocumentId(getLivreId((Livre) document));
+        }else{
+            document.setDocumentId(getMediaId((Media) document));
+        }
         document.setNbExemplaires(document.getNbExemplaires() + 1);
         DB.merge(document);
     }
-
+    private int getLivreId(Livre toFind){
+        if (checkIfLivrePresent(toFind)){
+            Set<Livre> livres = DB.findAllLivre();
+            for (Livre livre : livres){
+                if(livre.equals(toFind)){
+                    return livre.getDocumentId();
+                }
+            }
+        }
+        return toFind.getDocumentId();
+    }
+    private int getMediaId(Media toFind){
+        if (checkIfMediaPresent(toFind)){
+            Set<Media> mediaSet= DB.findAllMedia();
+            for (Media media : mediaSet){
+                if(media.equals(toFind)){
+                    return media.getDocumentId();
+                }
+            }
+        }
+        return toFind.getDocumentId();
+    }
     private boolean checkIfLivrePresent(Livre toCheck){
         Set<Livre> livres = DB.findAllLivre();
         for (Livre livre : livres){
             if(livre.equals(toCheck)){
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean checkIfMediaPresent(Media toCheck){
+        Set<Media> mediaSet = DB.findAllMedia();
+        for (Media media : mediaSet){
+            if(media.equals(toCheck)){
                 return true;
             }
         }
