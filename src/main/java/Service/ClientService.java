@@ -11,7 +11,9 @@ import Models.Enums.MediaType;
 import Models.Users.Client;
 
 import javax.print.Doc;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAmount;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -78,19 +80,15 @@ public class ClientService {
                 .genre(genre)
                 .build();
         if (checkIfLivrePresent(toSave)){
-            addExemplaire(toSave);
+            addExemplaire(toSave, 1);
         }else {
             DB.save(toSave);
         }
     }
 
-    private void addExemplaire(Documents document) {
-        if (document instanceof Livre){
-            document.setDocumentId(getLivreId((Livre) document));
-        }else{
-            document.setDocumentId(getMediaId((Media) document));
-        }
-        document.setNbExemplaires(document.getNbExemplaires() + 1);
+    private void addExemplaire(Documents document, int amount) {
+        document.setDocumentId(getDocumentId(document));
+        document.setNbExemplaires(document.getNbExemplaires() + amount);
         DB.merge(document);
     }
     private int getLivreId(Livre toFind){
@@ -103,6 +101,13 @@ public class ClientService {
             }
         }
         return toFind.getDocumentId();
+    }
+    private int getDocumentId(Documents toFind){
+        if (toFind instanceof Livre){
+            return getLivreId((Livre) toFind);
+        }else {
+            return getMediaId((Media) toFind);
+        }
     }
     private int getMediaId(Media toFind){
         if (checkIfMediaPresent(toFind)){
@@ -133,6 +138,7 @@ public class ClientService {
         }
         return false;
     }
+    //todo exemplaires
     public void saveNewMedia(String titre, String auteur,
                              String editeur, int anneDePublication,
                              int nbExemplaire, String duree, MediaType type){
@@ -229,7 +235,8 @@ public class ClientService {
         return toReturn;
     }
 
-    public void emprunter(Client client,Documents document){
+    public void emprunter(int clientId,Documents document){
+        Client client = DB.findClientById(clientId);
         try {
             throwClientInexistant(client);
             throwClientEmpruntsMax(client);
@@ -238,7 +245,18 @@ public class ClientService {
         }catch (IllegalArgumentException e){
             return;
         }
-
+        Emprunt emprunt = Emprunt.builder()
+                .document(document)
+                .client(client)
+                .dateTime(LocalDateTime.now())
+                .returnDateTime(LocalDateTime.now().plusWeeks(document.getTempsEmprunt()))
+                .build();
+        List<Emprunt> empruntList = client.getEmprunts();
+        empruntList.add(emprunt);
+        client.setEmprunts(empruntList);
+        DB.merge(client);
+        addExemplaire(document,-1);
+        DB.save(emprunt);
     }
     private void throwClientEmpruntsMax(Client client){
         List<Emprunt> clientEmprunts = getClientEmprunts(client.getClientNumber());
