@@ -86,5 +86,35 @@ public class ClientService {
         }
         return toReturn;
     }
+    public Set<Livre> rechercheLivreAuteur(String auteur){
+        Set<Livre> livres = DB.findAllLivre();
+        Set<Livre> toReturn = new HashSet<>();
+        for (Livre livre : livres){
+            if (livre.getAuteur().equals(auteur))){
+                toReturn.add(livre);
+            }
+        }
+        return toReturn;
+    }
+    public Set<Livre> rechercheLivreAnne(int annee){
+        Set<Livre> livres = DB.findAllLivre();
+        Set<Livre> toReturn = new HashSet<>();
+        for (Livre livre : livres){
+            if (livre.getAnneeDePublication() == annee){
+                toReturn.add(livre);
+            }
+        }
+        return toReturn;
+    }
+    public Set<Livre> rechercheLivreGenre(Genres genre){
+        Set<Livre> livres = DB.findAllLivre();
+        Set<Livre> toReturn = new HashSet<>();
+        for (Livre livre : livres){
+            if (livre.getGenre() == (genre)){
+                toReturn.add(livre);
+            }
+        }
+        return toReturn;
+    }
 
 }
