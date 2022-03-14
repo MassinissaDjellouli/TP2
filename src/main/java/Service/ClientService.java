@@ -2,6 +2,8 @@ package Service;
 
 import Database.BiblioDAO;
 import Models.Dette;
+import Models.Documents.Documents;
+import Models.Documents.Livre;
 import Models.Emprunt;
 import Models.Users.Client;
 
@@ -58,4 +60,15 @@ public class ClientService {
     public Set<Client> getAllClientsWEmprunt(){
         return DB.findAllClientWEmprunts();
     }
+    public Set<Livre> rechercheLivreTitre(String titre){
+        Set<Livre> livres = DB.findAllLivre();
+        Set<Livre> toReturn = new HashSet<>();
+        for (Livre livre : livres){
+            if (livre.getTitre().contains(titre)){
+                toReturn.add(livre);
+            }
+        }
+        return toReturn;
+    }
+
 }

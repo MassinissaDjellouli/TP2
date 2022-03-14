@@ -2,6 +2,7 @@ package Database;
 
 import Models.Dette;
 import Models.Documents.Documents;
+import Models.Documents.Livre;
 import Models.Users.Client;
 
 import javax.persistence.EntityManager;
@@ -52,6 +53,14 @@ public class BiblioDAO implements BiblioDAOInterface {
         beginTransaction();
         TypedQuery<Documents> query = entityManager.createQuery("select d from Documents d",Documents.class );
         Set<Documents> toReturn = new HashSet(query.getResultList());
+        finishTransaction();
+        return toReturn;
+    }
+
+    public Set<Livre> findAllLivre(){
+        beginTransaction();
+        TypedQuery<Livre> query = entityManager.createQuery("select l from Livre l", Livre.class );
+        Set<Livre> toReturn = new HashSet(query.getResultList());
         finishTransaction();
         return toReturn;
     }
@@ -110,6 +119,7 @@ public class BiblioDAO implements BiblioDAOInterface {
         entityManager.close();
         entityManager = null;
     }
+    @Override
     public void handleException(String msg){
         if(entityManager != null){
             entityManager.getTransaction().rollback();

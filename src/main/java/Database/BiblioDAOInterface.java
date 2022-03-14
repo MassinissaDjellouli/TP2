@@ -17,4 +17,6 @@ public interface BiblioDAOInterface {
      Client findClientByIdWEmprunts(int id);
      Set<Client> findAllClient();
      Set<Client> findAllClientWEmprunts();
+
+    void handleException(String msg);
 }
