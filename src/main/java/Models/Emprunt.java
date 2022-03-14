@@ -1,11 +1,10 @@
 package Models;
-
 import Models.Documents.Documents;
 import Models.Users.Client;
 import lombok.*;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
+
 @Entity
 @Builder
 @Data

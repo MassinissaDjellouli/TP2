@@ -1,9 +1,7 @@
 package Models.Documents;
-
 import Models.Enums.Genres;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 

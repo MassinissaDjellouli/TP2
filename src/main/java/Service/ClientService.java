@@ -9,11 +9,7 @@ import Models.Emprunt;
 import Models.Enums.Genres;
 import Models.Enums.MediaType;
 import Models.Users.Client;
-
-import javax.print.Doc;
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,6 +21,7 @@ public class ClientService {
     public ClientService(BiblioDAO DBClient) {
         this.DB = DBClient;
     }
+
     public void saveNewClient(String name,String adress, String phone){
         Dette dette = new Dette();
         Client toSave = Client.builder()
@@ -36,6 +33,7 @@ public class ClientService {
         toSave.setDette(dette);
         DB.save(toSave);
     }
+
     public void addDetteToClient(int id, float montant){
 
         try {
@@ -54,19 +52,24 @@ public class ClientService {
             DB.handleException("Une erreur est survenue avec la base de donnée");
         }
     }
+
     public Client getClientById(int id){
         return DB.findClientByIdWEmprunts(id);
     }
+
     public List<Emprunt> getClientEmprunts(int clientId){
         Client client = getClientById(clientId);
         return client.getEmprunts();
     }
+
     public Set<Client> getAllClients(){
         return DB.findAllClient();
     }
+
     public Set<Client> getAllClientsWEmprunt(){
         return DB.findAllClientWEmprunts();
     }
+
     public void saveNewLivre(String titre, String auteur,
                              String editeur, int anneDePublication,
                              int nbExemplaire, int nbPages, Genres genre){
@@ -87,58 +90,6 @@ public class ClientService {
         }
     }
 
-    private void addExemplaire(Documents document, int amount) {
-        document.setDocumentId(getDocumentId(document));
-        document.setNbExemplaires(document.getNbExemplaires() + amount);
-        DB.merge(document);
-    }
-    private int getLivreId(Livre toFind){
-        if (checkIfLivrePresent(toFind)){
-            Set<Livre> livres = DB.findAllLivre();
-            for (Livre livre : livres){
-                if(livre.equals(toFind)){
-                    return livre.getDocumentId();
-                }
-            }
-        }
-        return toFind.getDocumentId();
-    }
-    private int getDocumentId(Documents toFind){
-        if (toFind instanceof Livre){
-            return getLivreId((Livre) toFind);
-        }else {
-            return getMediaId((Media) toFind);
-        }
-    }
-    private int getMediaId(Media toFind){
-        if (checkIfMediaPresent(toFind)){
-            Set<Media> mediaSet= DB.findAllMedia();
-            for (Media media : mediaSet){
-                if(media.equals(toFind)){
-                    return media.getDocumentId();
-                }
-            }
-        }
-        return toFind.getDocumentId();
-    }
-    private boolean checkIfLivrePresent(Livre toCheck){
-        Set<Livre> livres = DB.findAllLivre();
-        for (Livre livre : livres){
-            if(livre.equals(toCheck)){
-                return true;
-            }
-        }
-        return false;
-    }
-    private boolean checkIfMediaPresent(Media toCheck){
-        Set<Media> mediaSet = DB.findAllMedia();
-        for (Media media : mediaSet){
-            if(media.equals(toCheck)){
-                return true;
-            }
-        }
-        return false;
-    }
     public void saveNewMedia(String titre, String auteur,
                              String editeur, int anneDePublication,
                              int nbExemplaire, String duree, MediaType type){
@@ -158,6 +109,7 @@ public class ClientService {
             DB.save(toSave);
         }
     }
+
     public List<Livre> rechercheLivreTitre(String titre){
         Set<Livre> livres = DB.findAllLivre();
         Set<Livre> toReturn = new HashSet<>();
@@ -166,8 +118,9 @@ public class ClientService {
                 toReturn.add(livre);
             }
         }
-        return new ArrayList(toReturn);
+        return new ArrayList<>(toReturn);
     }
+
     public List<Livre> rechercheLivreAuteur(String auteur){
         Set<Livre> livres = DB.findAllLivre();
         Set<Livre> toReturn = new HashSet<>();
@@ -176,8 +129,9 @@ public class ClientService {
                 toReturn.add(livre);
             }
         }
-        return new ArrayList(toReturn);
+        return new ArrayList<>(toReturn);
     }
+
     public List<Livre> rechercheLivreAnne(int annee){
         Set<Livre> livres = DB.findAllLivre();
         Set<Livre> toReturn = new HashSet<>();
@@ -186,8 +140,9 @@ public class ClientService {
                 toReturn.add(livre);
             }
         }
-        return new ArrayList(toReturn);
+        return new ArrayList<>(toReturn);
     }
+
     public List<Livre> rechercheLivreGenre(Genres genre){
         Set<Livre> livres = DB.findAllLivre();
         Set<Livre> toReturn = new HashSet<>();
@@ -196,8 +151,9 @@ public class ClientService {
                 toReturn.add(livre);
             }
         }
-        return new ArrayList(toReturn);
+        return new ArrayList<>(toReturn);
     }
+
     public List<Media> rechercheMediaTitre(String titre){
         Set<Media> medias = DB.findAllMedia();
         Set<Media> toReturn = new HashSet<>();
@@ -206,8 +162,9 @@ public class ClientService {
                 toReturn.add(media);
             }
         }
-        return new ArrayList(toReturn);
+        return new ArrayList<>(toReturn);
     }
+
     public List<Media> rechercheMediaAuteur(String auteur){
         Set<Media> medias = DB.findAllMedia();
         Set<Media> toReturn = new HashSet<>();
@@ -216,8 +173,9 @@ public class ClientService {
                 toReturn.add(media);
             }
         }
-        return new ArrayList(toReturn);
+        return new ArrayList<>(toReturn);
     }
+
     public List<Media> rechercheMediaAnne(int annee){
         Set<Media> medias = DB.findAllMedia();
         Set<Media> toReturn = new HashSet<>();
@@ -226,8 +184,9 @@ public class ClientService {
                 toReturn.add(media);
             }
         }
-        return new ArrayList(toReturn);
+        return new ArrayList<>(toReturn);
     }
+
     public List<Media> rechercheMediaType(MediaType type){
         Set<Media> medias = DB.findAllMedia();
         Set<Media> toReturn = new HashSet<>();
@@ -236,7 +195,7 @@ public class ClientService {
                 toReturn.add(media);
             }
         }
-        return new ArrayList(toReturn);
+        return new ArrayList<>(toReturn);
     }
 
     public void emprunter(int clientId,Documents document){
@@ -262,6 +221,7 @@ public class ClientService {
         addExemplaire(document,-1);
         DB.save(emprunt);
     }
+
     private void throwClientEmpruntsMax(Client client){
         List<Emprunt> clientEmprunts = getClientEmprunts(client.getClientNumber());
         if (clientEmprunts.size() >= 3){
@@ -269,6 +229,7 @@ public class ClientService {
             throw new IllegalArgumentException();
         }
     }
+
     private void throwClientAmende(Client client){
         Dette dette = client.getDette();
         if (dette.getMontant() > 0){
@@ -276,6 +237,7 @@ public class ClientService {
             throw new IllegalArgumentException();
         }
     }
+
     private void throwDocumentInexistant(Documents document){
         if (document instanceof Livre && checkIfLivrePresent((Livre) document)){
             return;
@@ -286,11 +248,70 @@ public class ClientService {
 
         throw new IllegalArgumentException();
     }
+
     private void throwClientInexistant(Client client){
         if (DB.findClientById(client.getClientNumber()) != null){
             return;
         }
         System.out.println("Le client recherché n'existe pas");
         throw new IllegalArgumentException();
+    }
+
+    private void addExemplaire(Documents document, int amount) {
+        document.setDocumentId(getDocumentId(document));
+        document.setNbExemplaires(document.getNbExemplaires() + amount);
+        DB.merge(document);
+    }
+
+    private int getLivreId(Livre toFind){
+        if (checkIfLivrePresent(toFind)){
+            Set<Livre> livres = DB.findAllLivre();
+            for (Livre livre : livres){
+                if(livre.equals(toFind)){
+                    return livre.getDocumentId();
+                }
+            }
+        }
+        return toFind.getDocumentId();
+    }
+
+    private int getDocumentId(Documents toFind){
+        if (toFind instanceof Livre){
+            return getLivreId((Livre) toFind);
+        }else {
+            return getMediaId((Media) toFind);
+        }
+    }
+
+    private int getMediaId(Media toFind){
+        if (checkIfMediaPresent(toFind)){
+            Set<Media> mediaSet= DB.findAllMedia();
+            for (Media media : mediaSet){
+                if(media.equals(toFind)){
+                    return media.getDocumentId();
+                }
+            }
+        }
+        return toFind.getDocumentId();
+    }
+
+    private boolean checkIfLivrePresent(Livre toCheck){
+        Set<Livre> livres = DB.findAllLivre();
+        for (Livre livre : livres){
+            if(livre.equals(toCheck)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkIfMediaPresent(Media toCheck){
+        Set<Media> mediaSet = DB.findAllMedia();
+        for (Media media : mediaSet){
+            if(media.equals(toCheck)){
+                return true;
+            }
+        }
+        return false;
     }
 }

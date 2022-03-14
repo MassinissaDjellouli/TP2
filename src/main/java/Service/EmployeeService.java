@@ -9,10 +9,5 @@ public class EmployeeService {
     public EmployeeService(BiblioDAO DBEmploye) {
         this.DB = DBEmploye;
     }
-    public void saveEmployee(Employe employe){
 
-    }
-    public Employe getEmploye(int id){
-        return null;
-    }
 }

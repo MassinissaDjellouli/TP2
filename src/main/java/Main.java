@@ -1,21 +1,13 @@
-
 import Database.BiblioDAO;
+import Models.Documents.Documents;
 import Models.Documents.Media;
-import Models.Emprunt;
 import Models.Enums.Genres;
 import Models.Documents.Livre;
 import Models.Enums.MediaType;
-import Models.Enums.Role;
 import Models.Users.Client;
-import Models.Users.Employe;
 import Service.ClientService;
-
-import javax.print.Doc;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {

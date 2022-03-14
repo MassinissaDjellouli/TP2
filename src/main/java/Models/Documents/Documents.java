@@ -1,9 +1,7 @@
 package Models.Documents;
-
 import Models.Enums.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-
 import javax.persistence.*;
 
 @Data

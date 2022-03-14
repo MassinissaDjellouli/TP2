@@ -1,8 +1,6 @@
 package Models;
-
 import Models.Users.Client;
 import lombok.*;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 

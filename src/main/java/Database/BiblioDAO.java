@@ -1,11 +1,8 @@
 package Database;
-
-import Models.Dette;
 import Models.Documents.Documents;
 import Models.Documents.Livre;
 import Models.Documents.Media;
 import Models.Users.Client;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -27,6 +24,7 @@ public class BiblioDAO implements BiblioDAOInterface {
         entityManager.persist(toSave);
         finishTransaction();
     }
+
     @Override
     public <T> void delete(T toDelete) {
         beginTransaction();
@@ -34,6 +32,7 @@ public class BiblioDAO implements BiblioDAOInterface {
         entityManager.remove(toDelete);
         finishTransaction();
     }
+
     @Override
     public <T> void merge(T toMerge){
         beginTransaction();
@@ -53,15 +52,16 @@ public class BiblioDAO implements BiblioDAOInterface {
     public Set<Documents> findAllDocuments() {
         beginTransaction();
         TypedQuery<Documents> query = entityManager.createQuery("select d from Documents d",Documents.class );
-        Set<Documents> toReturn = new HashSet(query.getResultList());
+        Set<Documents> toReturn = new HashSet<>(query.getResultList());
         finishTransaction();
         return toReturn;
     }
+
     @Override
     public Set<Livre> findAllLivre(){
         beginTransaction();
         TypedQuery<Livre> query = entityManager.createQuery("select l from Livre l", Livre.class );
-        Set<Livre> toReturn = new HashSet(query.getResultList());
+        Set<Livre> toReturn = new HashSet<>(query.getResultList());
         finishTransaction();
         return toReturn;
     }
@@ -102,23 +102,37 @@ public class BiblioDAO implements BiblioDAOInterface {
         finishTransaction();
         return toReturn;
     }
+
+    @Override
+    public Set<Media> findAllMedia() {
+        beginTransaction();
+        TypedQuery<Media> query = entityManager.createQuery("select m from Media m", Media.class );
+        Set<Media> toReturn = new HashSet<>(query.getResultList());
+        finishTransaction();
+        return toReturn;
+    }
+
     protected void throwIfNull(Object o){
         if(o == null) throw new IllegalArgumentException();
     }
+
     protected void throwIfNotNull(Object o){
         if(o != null) throw new IllegalArgumentException();
     }
+
     protected void beginTransaction(){
         throwIfNotNull(entityManager);
         entityManager = getEntityManager();
         entityManager.getTransaction().begin();
     }
+
     protected void finishTransaction(){
         throwIfNull(entityManager);
         entityManager.getTransaction().commit();
         entityManager.close();
         entityManager = null;
     }
+
     @Override
     public void handleException(String msg){
         if(entityManager != null){
@@ -128,13 +142,5 @@ public class BiblioDAO implements BiblioDAOInterface {
         }
             System.out.println(msg);
 
-    }
-    @Override
-    public Set<Media> findAllMedia() {
-        beginTransaction();
-        TypedQuery<Media> query = entityManager.createQuery("select m from Media m", Media.class );
-        Set<Media> toReturn = new HashSet(query.getResultList());
-        finishTransaction();
-        return toReturn;
     }
 }
