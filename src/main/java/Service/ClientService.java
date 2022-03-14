@@ -76,7 +76,26 @@ public class ClientService {
                 .tempsEmprunt(3)
                 .genre(genre)
                 .build();
-        DB.save(toSave);
+        if (checkIfLivrePresent(toSave)){
+            addExemplaire(toSave);
+        }else {
+            DB.save(toSave);
+        }
+    }
+
+    private void addExemplaire(Documents document) {
+        document.setNbExemplaires(document.getNbExemplaires() + 1);
+        DB.merge(document);
+    }
+
+    private boolean checkIfLivrePresent(Livre toCheck){
+        Set<Livre> livres = DB.findAllLivre();
+        for (Livre livre : livres){
+            if(livre.equals(toCheck)){
+                return true;
+            }
+        }
+        return false;
     }
     public void saveNewMedia(String titre, String auteur,
                              String editeur, int anneDePublication,

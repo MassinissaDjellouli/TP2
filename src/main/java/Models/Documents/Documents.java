@@ -1,10 +1,7 @@
 package Models.Documents;
 
 import Models.Enums.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -18,6 +15,7 @@ import javax.persistence.*;
 public abstract class Documents {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @EqualsAndHashCode.Exclude
     private int documentId;
     private String titre;
     private String auteur;
