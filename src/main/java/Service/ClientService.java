@@ -138,7 +138,6 @@ public class ClientService {
         }
         return false;
     }
-    //todo exemplaires
     public void saveNewMedia(String titre, String auteur,
                              String editeur, int anneDePublication,
                              int nbExemplaire, String duree, MediaType type){
@@ -152,7 +151,11 @@ public class ClientService {
                 .type(type)
                 .tempsEmprunt(Documents.setMediaTempsEmprunts(type))
                 .build();
-        DB.save(toSave);
+        if (checkIfMediaPresent(toSave)){
+            addExemplaire(toSave, 1);
+        }else {
+            DB.save(toSave);
+        }
     }
     public Set<Livre> rechercheLivreTitre(String titre){
         Set<Livre> livres = DB.findAllLivre();
