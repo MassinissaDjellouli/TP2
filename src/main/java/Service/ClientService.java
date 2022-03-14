@@ -218,7 +218,7 @@ public class ClientService {
         empruntList.add(emprunt);
         client.setEmprunts(empruntList);
         DB.merge(client);
-        addExemplaire(document,-1);
+            addExemplaire(document,-1);
         DB.save(emprunt);
     }
 
@@ -239,9 +239,9 @@ public class ClientService {
     }
 
     private void throwDocumentInexistant(Documents document){
-        if (document instanceof Livre && checkIfLivrePresent((Livre) document)){
+        if (document instanceof Livre && checkIfLivrePresent((Livre) document) && document.getNbExemplaires() > 0){
             return;
-        }else if (document instanceof Media && checkIfMediaPresent((Media) document)){
+        }else if (document instanceof Media && checkIfMediaPresent((Media) document) && document.getNbExemplaires() > 0){
             return;
         }
         System.out.println("Le document recherché n'existe pas");
