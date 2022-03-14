@@ -4,8 +4,10 @@ import Database.BiblioDAO;
 import Models.Dette;
 import Models.Documents.Documents;
 import Models.Documents.Livre;
+import Models.Documents.Media;
 import Models.Emprunt;
 import Models.Enums.Genres;
+import Models.Enums.MediaType;
 import Models.Users.Client;
 
 import java.time.LocalDateTime;
@@ -73,6 +75,21 @@ public class ClientService {
                 .nbPages(nbPages)
                 .tempsEmprunt(3)
                 .genre(genre)
+                .build();
+        DB.save(toSave);
+    }
+    public void saveNewMedia(String titre, String auteur,
+                             String editeur, int anneDePublication,
+                             int nbExemplaire, String duree, MediaType type){
+        Media toSave = Media.builder()
+                .titre(titre)
+                .auteur(auteur)
+                .editeur(editeur)
+                .anneeDePublication(anneDePublication)
+                .nbExemplaires(nbExemplaire)
+                .duree(duree)
+                .type(type)
+                .tempsEmprunt(Documents.setMediaTempsEmprunts(type))
                 .build();
         DB.save(toSave);
     }

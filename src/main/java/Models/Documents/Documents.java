@@ -26,10 +26,11 @@ public abstract class Documents {
     private int tempsEmprunt;
     private int nbExemplaires;
 
-    protected static void setMediaTempsEmprunts(Media media) {
-        switch (media.getType()){
-            case cd -> media.setTempsEmprunt(2);
-            case dvd -> media.setTempsEmprunt(1);
+    public static int setMediaTempsEmprunts(MediaType type) {
+        switch (type){
+            case cd -> { return 2;}
+            case dvd -> { return 1;}
+            default -> {return 1;}
         }
     }
 }
