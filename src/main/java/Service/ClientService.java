@@ -10,6 +10,7 @@ import Models.Enums.Genres;
 import Models.Enums.MediaType;
 import Models.Users.Client;
 
+import javax.print.Doc;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -226,5 +227,48 @@ public class ClientService {
             }
         }
         return toReturn;
+    }
+
+    public void emprunter(Client client,Documents document){
+        try {
+            throwClientInexistant(client);
+            throwClientEmpruntsMax(client);
+            throwClientAmende(client);
+            throwDocumentInexistant(document);
+        }catch (IllegalArgumentException e){
+            return;
+        }
+
+    }
+    private void throwClientEmpruntsMax(Client client){
+        List<Emprunt> clientEmprunts = getClientEmprunts(client.getClientNumber());
+        if (clientEmprunts.size() >= 3){
+            System.out.println("La limite d'emprunts est atteinte pour le client");
+            throw new IllegalArgumentException();
+        }
+    }
+    private void throwClientAmende(Client client){
+        Dette dette = client.getDette();
+        if (dette.getMontant() > 0){
+            System.out.println("Le client a une dette a regler");
+            throw new IllegalArgumentException();
+        }
+    }
+    private void throwDocumentInexistant(Documents document){
+        if (document instanceof Livre && checkIfLivrePresent((Livre) document)){
+            return;
+        }else if (document instanceof Media && checkIfMediaPresent((Media) document)){
+            return;
+        }
+        System.out.println("Le document recherché n'existe pas");
+
+        throw new IllegalArgumentException();
+    }
+    private void throwClientInexistant(Client client){
+        if (DB.findClientById(client.getClientNumber()) != null){
+            return;
+        }
+        System.out.println("Le client recherché n'existe pas");
+        throw new IllegalArgumentException();
     }
 }
