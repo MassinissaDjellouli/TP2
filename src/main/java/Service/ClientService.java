@@ -14,6 +14,7 @@ import javax.print.Doc;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAmount;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -157,7 +158,7 @@ public class ClientService {
             DB.save(toSave);
         }
     }
-    public Set<Livre> rechercheLivreTitre(String titre){
+    public List<Livre> rechercheLivreTitre(String titre){
         Set<Livre> livres = DB.findAllLivre();
         Set<Livre> toReturn = new HashSet<>();
         for (Livre livre : livres){
@@ -165,9 +166,9 @@ public class ClientService {
                 toReturn.add(livre);
             }
         }
-        return toReturn;
+        return new ArrayList(toReturn);
     }
-    public Set<Livre> rechercheLivreAuteur(String auteur){
+    public List<Livre> rechercheLivreAuteur(String auteur){
         Set<Livre> livres = DB.findAllLivre();
         Set<Livre> toReturn = new HashSet<>();
         for (Livre livre : livres){
@@ -175,9 +176,9 @@ public class ClientService {
                 toReturn.add(livre);
             }
         }
-        return toReturn;
+        return new ArrayList(toReturn);
     }
-    public Set<Livre> rechercheLivreAnne(int annee){
+    public List<Livre> rechercheLivreAnne(int annee){
         Set<Livre> livres = DB.findAllLivre();
         Set<Livre> toReturn = new HashSet<>();
         for (Livre livre : livres){
@@ -185,9 +186,9 @@ public class ClientService {
                 toReturn.add(livre);
             }
         }
-        return toReturn;
+        return new ArrayList(toReturn);
     }
-    public Set<Livre> rechercheLivreGenre(Genres genre){
+    public List<Livre> rechercheLivreGenre(Genres genre){
         Set<Livre> livres = DB.findAllLivre();
         Set<Livre> toReturn = new HashSet<>();
         for (Livre livre : livres){
@@ -195,9 +196,9 @@ public class ClientService {
                 toReturn.add(livre);
             }
         }
-        return toReturn;
+        return new ArrayList(toReturn);
     }
-    public Set<Media> rechercheMediaTitre(String titre){
+    public List<Media> rechercheMediaTitre(String titre){
         Set<Media> medias = DB.findAllMedia();
         Set<Media> toReturn = new HashSet<>();
         for (Media media : medias){
@@ -205,9 +206,9 @@ public class ClientService {
                 toReturn.add(media);
             }
         }
-        return toReturn;
+        return new ArrayList(toReturn);
     }
-    public Set<Media> rechercheMediaAuteur(String auteur){
+    public List<Media> rechercheMediaAuteur(String auteur){
         Set<Media> medias = DB.findAllMedia();
         Set<Media> toReturn = new HashSet<>();
         for (Media media : medias){
@@ -215,9 +216,9 @@ public class ClientService {
                 toReturn.add(media);
             }
         }
-        return toReturn;
+        return new ArrayList(toReturn);
     }
-    public Set<Media> rechercheMediaAnne(int annee){
+    public List<Media> rechercheMediaAnne(int annee){
         Set<Media> medias = DB.findAllMedia();
         Set<Media> toReturn = new HashSet<>();
         for (Media media : medias){
@@ -225,9 +226,9 @@ public class ClientService {
                 toReturn.add(media);
             }
         }
-        return toReturn;
+        return new ArrayList(toReturn);
     }
-    public Set<Media> rechercheMediaType(MediaType type){
+    public List<Media> rechercheMediaType(MediaType type){
         Set<Media> medias = DB.findAllMedia();
         Set<Media> toReturn = new HashSet<>();
         for (Media media : medias){
@@ -235,7 +236,7 @@ public class ClientService {
                 toReturn.add(media);
             }
         }
-        return toReturn;
+        return new ArrayList(toReturn);
     }
 
     public void emprunter(int clientId,Documents document){
