@@ -240,7 +240,7 @@ public class ClientService {
     }
 
     public void emprunter(int clientId,Documents document){
-        Client client = DB.findClientById(clientId);
+        Client client = DB.findClientByIdWEmprunts(clientId);
         try {
             throwClientInexistant(client);
             throwClientEmpruntsMax(client);

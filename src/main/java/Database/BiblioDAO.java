@@ -78,8 +78,7 @@ public class BiblioDAO implements BiblioDAOInterface {
     public Client findClientByIdWEmprunts(int id) {
         beginTransaction();
         TypedQuery<Client> query =
-                entityManager.createQuery("select c From Client c left join fetch c.emprunts ce where ce.client.id = :id ",Client.class);
-        query.setParameter("id",id);
+                entityManager.createQuery("select c From Client c left join fetch c.emprunts ce ",Client.class);
         Client toReturn = query.getSingleResult();
         finishTransaction();
         return toReturn;
